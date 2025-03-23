@@ -219,9 +219,38 @@
         .login-btn:hover {
             transform: translateY(-2px);
         }
+
+        /* Loader Styles */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
-<body class="bg-[#161725]" x-data="{ mobileMenuOpen: false }">
+<body class="bg-[#161725]" x-data="{ loading: true, mobileMenuOpen: false }" x-init="AOS.init(); setTimeout(() => loading = false, 2000)">
+    <div x-show="loading" 
+         x-transition:leave="transition-all duration-1000"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#161725]/80 backdrop-blur-[10px]">
+        <div class="relative">
+            <ul class="m-0 p-0 list-none">
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[60px] h-[60px] -mt-[30px] -ml-[30px] animate-[spin_3s_linear_infinite]"></li>
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[40px] h-[40px] -mt-[20px] -ml-[20px] animate-[spin_2s_linear_infinite]"></li>
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[20px] h-[20px] -mt-[10px] -ml-[10px] animate-[spin_1s_linear_infinite]"></li>
+            </ul>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center whitespace-nowrap z-10">
+            </div>
+        </div>
+    </div>
+
     <!-- Navbar actualizado -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-[#fab501]/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
