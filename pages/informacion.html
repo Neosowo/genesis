@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información - Genesis NW</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        
+        * {
+            font-family: "Noto Sans", sans-serif;
+        }
+        h1, h2 {
+            font-family: "Josefin Sans", sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #fab501, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(22, 23, 37, 0.75);
+        }
+
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #161725;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #fab501;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(250, 181, 1, 0.8);
+        }
+
+        ::-webkit-scrollbar:horizontal {
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+
+        .hero-title,
+        .hero-title span {
+            font-family: "Josefin Sans", sans-serif !important;
+        }
+        
+        .hero-title-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-title-container::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Tablets */
+        @media (min-width: 768px) {
+            .hero-title-container::after {
+                bottom: -25px;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .hero-title-container::after {
+                bottom: -30px;
+            }
+        }
+
+        /* SweetAlert2 Custom Styles */
+        .swal2-popup {
+            background-color: rgba(22, 23, 37, 0.98) !important;
+            border: 1px solid #fab501 !important;
+            border-radius: 0.5rem !important;
+            padding: 2rem !important;
+            max-width: 400px !important;
+        }
+        
+        .swal2-title {
+            color: #fab501 !important;
+            font-family: "Josefin Sans", sans-serif !important;
+            font-size: 1.8rem !important;
+            font-weight: 600 !important;
+            margin-bottom: 2rem !important;
+        }
+        
+        .swal2-html-container {
+            color: white !important;
+            font-family: "Noto Sans", sans-serif !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .swal2-confirm {
+            background-color: #fab501 !important;
+            color: #161725 !important;
+            border-radius: 0.25rem !important;
+            font-weight: 600 !important;
+            padding: 0.75rem 1.5rem !important;
+            transition: all 0.3s ease !important;
+            margin-top: 1rem !important;
+            width: 100% !important;
+        }
+        
+        .swal2-cancel {
+            background-color: transparent !important;
+            color: #fab501 !important;
+            border: 1px solid #fab501 !important;
+            border-radius: 0.25rem !important;
+            font-weight: 600 !important;
+            padding: 0.75rem 1.5rem !important;
+            width: 100% !important;
+        }
+        
+        .login-input {
+            background-color: rgba(22, 23, 37, 0.7) !important;
+            border: 1px solid #fab501 !important;
+            color: white !important;
+            border-radius: 0.25rem !important;
+            padding: 0.75rem 1rem !important;
+            margin-bottom: 1rem !important;
+            box-shadow: none !important;
+            width: 100% !important;
+            height: 45px !important;
+        }
+        
+        .login-input:focus {
+            border-color: #fab501 !important;
+            box-shadow: none !important;
+        }
+        
+        .login-divider {
+            width: 100%;
+            height: 2px;
+            background: #fab501;
+            margin: 1.5rem 0;
+        }
+        
+        .input-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .login-checkbox {
+            margin-right: 0.5rem !important;
+            border: 1px solid #fab501 !important;
+        }
+        
+        .login-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+        }
+        
+        .login-forgot {
+            color: #fab501 !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .login-register {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .login-register a {
+            color: #fab501 !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .yellow-divider {
+            width: 100%;
+            height: 4px;
+            background-color: #fab501;
+            margin: 1rem 0;
+            border-radius: 2px;
+        }
+        
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-[#161725]" x-data="{ mobileMenuOpen: false }">
+    <!-- Navbar actualizado -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-[#fab501]/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-white hover:text-[#fab501] transition-all duration-300">
+                        <span class="text-[#fab501] font-['Josefin_Sans']">Genesis</span><span class="font-['Josefin_Sans']">NW</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="relative">
+                        <input type="search" 
+                               placeholder="Buscar..." 
+                               class="px-4 py-2 rounded-lg bg-[#161725]/80 border border-[#fab501]/20 text-white focus:outline-none focus:ring-2 focus:ring-[#fab501]/50 focus:border-[#fab501]"
+                               x-on:focus="searchOpen = true">
+                        <svg class="absolute right-3 top-2.5 h-5 w-5 text-[#fab501]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <a href="/" class="text-white hover:text-[#fab501] transition-colors duration-200">Inicio</a>
+                    <a href="/pages/cargos-publicos.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Cargos Públicos</a>
+                    <a href="/pages/tienda.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Tienda</a>
+                    <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#fab501] transition-colors duration-200">Discord</a>
+                    <a href="/pages/wiki.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Wiki</a>
+                    <a href="/pages/informacion.html" class="text-[#fab501] transition-colors duration-200">Información</a>
+                    <!-- Login Button -->
+                    <button onclick="showLoginModal()" class="login-btn text-white hover:text-[#fab501] transition-colors duration-200 flex items-center">
+                        <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:text-[#fab501]">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" 
+             class="relative"
+             @click.away="mobileMenuOpen = false">
+            <div x-show="mobileMenuOpen"
+                 x-transition:enter="transition-opacity ease-linear duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition-opacity ease-linear duration-300"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 bg-black bg-opacity-25"
+                 style="z-index: -1;"></div>
+            
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform -translate-y-2"
+                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-2"
+                 class="absolute right-0 w-full bg-[#161725] shadow-lg py-2">
+                <div class="px-4 pt-2 pb-3 space-y-1">
+                    <input type="search" 
+                           placeholder="Buscar..." 
+                           class="w-full px-4 py-2 rounded-lg bg-[#161725]/80 border border-[#fab501]/20 text-white mb-2">
+                    <a href="/" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Inicio</a>
+                    <a href="/pages/cargos-publicos.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Cargos Públicos</a>
+                    <a href="/pages/tienda.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Tienda</a>
+                    <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Discord</a>
+                    <a href="/pages/wiki.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Wiki</a>
+                    <a href="/pages/informacion.html" class="block px-3 py-2 rounded-md text-[#fab501] hover:bg-[#fab501]/10">Información</a>
+                    <!-- Login Button for Mobile -->
+                    <button onclick="showLoginModal()" class="w-full text-left flex items-center px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">
+                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md">
+            <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-[#fab501]/20">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-white">Iniciar Sesión</h3>
+                    <button onclick="closeLoginModal()" class="text-white/60 hover:text-[#fab501] transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-white/80 mb-2">Correo electrónico</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="tu@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center text-white/80">
+                            <input type="checkbox" class="mr-2 rounded border-[#fab501]/20 text-[#fab501] focus:ring-[#fab501]">
+                            Recordarme
+                        </label>
+                        <a href="#" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-[#fab501] text-[#161725] py-3 rounded-lg font-semibold hover:bg-[#fab501]/90 transition-all transform hover:scale-[1.02]">
+                        Iniciar Sesión
+                    </button>
+                    <div class="text-center text-white/80">
+                        ¿No tienes una cuenta? 
+                        <a href="#" onclick="switchToRegister()" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">Regístrate</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md">
+            <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-[#fab501]/20">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-white">Crear Cuenta</h3>
+                    <button onclick="closeRegisterModal()" class="text-white/60 hover:text-[#fab501] transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-white/80 mb-2">Nombre</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-white/80 mb-2">Apellido</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="Tu apellido">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Correo electrónico</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="tu@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Confirmar Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="mr-2 rounded border-[#fab501]/20 text-[#fab501] focus:ring-[#fab501]">
+                        <label class="text-white/80 text-sm">
+                            Acepto los <a href="#" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">términos y condiciones</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="w-full bg-[#fab501] text-[#161725] py-3 rounded-lg font-semibold hover:bg-[#fab501]/90 transition-all transform hover:scale-[1.02]">
+                        Crear Cuenta
+                    </button>
+                    <div class="text-center text-white/80">
+                        ¿Ya tienes una cuenta? 
+                        <a href="#" onclick="switchToLogin()" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">Iniciar Sesión</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spacer -->
+    <div class="h-20"></div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[#161725]">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#fab501]/10 to-transparent"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+            <div class="hero-title-container mb-12">
+                <h1 class="hero-title text-5xl md:text-7xl font-bold text-white" data-aos="fade-up">
+                    Información <span class="gradient-text">General</span>
+                </h1>
+            </div>
+            <p class="text-xl text-white/80 max-w-3xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">
+                Todo lo que necesitas saber sobre nuestro servidor y cómo empezar
+            </p>
+            <div class="flex justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+                <a href="#guias" class="bg-[#fab501] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#fab501]/90 transition-colors">
+                    Ver Guías
+                </a>
+                <a href="#faq" class="border border-[#fab501] text-[#fab501] px-8 py-3 rounded-lg font-medium hover:bg-[#fab501]/10 transition-colors">
+                    FAQ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características -->
+    <section id="caracteristicas" class="py-24 bg-[#1a1b2e]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center text-white mb-16" data-aos="fade-up">
+                Características Principales
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-white/5 hover:border-[#fab501]/20 transition-all duration-300" 
+                     data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl mb-4">🌟</div>
+                    <h3 class="text-xl font-bold text-white mb-4">Experiencia Única</h3>
+                    <p class="text-white/70">
+                        Sumérgete en un mundo lleno de posibilidades y crea tu propia historia.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-white/5 hover:border-[#fab501]/20 transition-all duration-300"
+                     data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl mb-4">💼</div>
+                    <h3 class="text-xl font-bold text-white mb-4">Sistema de Trabajos</h3>
+                    <p class="text-white/70">
+                        Múltiples opciones laborales para desarrollar tu personaje.
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-white/5 hover:border-[#fab501]/20 transition-all duration-300"
+                     data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl mb-4">🏆</div>
+                    <h3 class="text-xl font-bold text-white mb-4">Eventos Especiales</h3>
+                    <p class="text-white/70">
+                        Participa en eventos únicos con recompensas exclusivas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estadísticas -->
+    <section class="py-24 bg-[#161725] relative overflow-hidden">
+        <div class="absolute inset-0 bg-[#fab501]/5"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div data-aos="fade-up">
+                    <h3 class="text-4xl font-bold text-white mb-2" id="usuarios_online">0</h3>
+                    <p class="text-[#fab501]">Jugadores Online</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-4xl font-bold text-white mb-2">100+</h3>
+                    <p class="text-[#fab501]">Trabajos Disponibles</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-4xl font-bold text-white mb-2">24/7</h3>
+                    <p class="text-[#fab501]">Soporte Activo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-[#1a1b2e]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-8" data-aos="fade-up">
+                ¿Listo para comenzar?
+            </h2>
+            <p class="text-xl text-white/80 max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">
+                Únete a nuestra comunidad y comienza tu aventura en Genesis NW
+            </p>
+            <a href="#" class="inline-block bg-[#fab501] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#fab501]/90 transition-colors"
+               data-aos="fade-up" data-aos-delay="200">
+                Conectar Ahora
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#161725] border-t border-[#fab501]/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-white/50">
+                <p>&copy; 2024 Genesis NW. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+        });
+
+        // Función para actualizar la UI
+        function updateUI(columnName, value) {
+            const element = document.getElementById(columnName);
+            if (element) {
+                element.textContent = value;
+                element.classList.add('animate-pulse');
+                setTimeout(() => {
+                    element.classList.remove('animate-pulse');
+                }, 1000);
+            }
+        }
+
+        // Login Modal Functions
+        function showLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLoginModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLoginModal();
+            }
+        });
+
+        // Register Modal Functions
+        function showRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchToRegister() {
+            closeLoginModal();
+            showRegisterModal();
+        }
+
+        function switchToLogin() {
+            closeRegisterModal();
+            showLoginModal();
+        }
+
+        // Close register modal when clicking outside
+        document.getElementById('registerModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRegisterModal();
+            }
+        });
+
+        // Close register modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeRegisterModal();
+            }
+        });
+    </script>
+</body>
+</html>

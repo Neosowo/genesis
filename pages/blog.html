@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Genesis NW</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        *{
+            font-family: "Noto Sans", sans-serif;
+        }
+        h1{
+            font-family: "Josefin Sans", sans-serif;
+        }	
+
+        .hero-title,
+        .hero-title span {
+            font-family: "Josefin Sans", sans-serif !important;
+        }
+        
+        .hero-title .gradient-text {
+            font-family: "Josefin Sans", sans-serif !important;
+            background: linear-gradient(to right, #fab501, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(22, 23, 37, 0.75);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #fab501, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #161725;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #fab501;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(250, 181, 1, 0.8);
+        }
+
+        ::-webkit-scrollbar:horizontal {
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+
+        .blog-card {
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            transition: all 0.5s ease;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.05);
+        }
+
+        /* Custom Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(22, 23, 37, 0.9);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal {
+            background: rgba(22, 23, 37, 0.95);
+            border: 1px solid #fab501;
+            border-radius: 1rem;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            color: #fab501;
+            font-family: "Josefin Sans", sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #fab501;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-input {
+            width: 100%;
+            background-color: rgba(22, 23, 37, 0.7);
+            border: 1px solid #fab501;
+            color: white;
+            border-radius: 0.25rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #fab501;
+            box-shadow: 0 0 0 2px rgba(250, 181, 1, 0.2);
+        }
+
+        .modal-checkbox {
+            margin-right: 0.5rem;
+            accent-color: #fab501;
+        }
+
+        .modal-link {
+            color: #fab501;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-link:hover {
+            text-decoration: underline;
+        }
+
+        .modal-button {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .modal-button.primary {
+            background-color: #fab501;
+            color: #161725;
+        }
+
+        .modal-button.primary:hover {
+            background-color: rgba(250, 181, 1, 0.9);
+        }
+
+        .modal-button.secondary {
+            background-color: transparent;
+            color: #fab501;
+            border: 1px solid #fab501;
+        }
+
+        .modal-button.secondary:hover {
+            background-color: rgba(250, 181, 1, 0.1);
+        }
+
+        .modal-divider {
+            width: 100%;
+            height: 2px;
+            background-color: #fab501;
+            margin: 1.5rem 0;
+            opacity: 0.2;
+        }
+    </style>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-[#161725]" x-data="{ loading: true, mobileMenuOpen: false }" x-init="AOS.init(); setTimeout(() => loading = false, 2000)">
+    <!-- Loading Screen -->
+    <div x-show="loading" 
+         x-transition:leave="transition-all duration-1000"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#161725]/80 backdrop-blur-[10px]">
+        <div class="relative">
+            <ul class="m-0 p-0 list-none">
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[60px] h-[60px] -mt-[30px] -ml-[30px] animate-[spin_3s_linear_infinite]"></li>
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[40px] h-[40px] -mt-[20px] -ml-[20px] animate-[spin_2s_linear_infinite]"></li>
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[20px] h-[20px] -mt-[10px] -ml-[10px] animate-[spin_1s_linear_infinite]"></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Spacer -->
+    <div class="h-16"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-[#fab501]/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-white hover:text-[#fab501] transition-all duration-300 flex items-center gap-2">
+                      
+                        <span class="text-white font-['Josefin_Sans']">Genesis</span><span class="font-['Josefin_Sans']">NW</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="text-white hover:text-[#fab501] transition-colors duration-200">Inicio</a>
+                    <a href="/pages/cargos-publicos.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Cargos Públicos</a>
+                    <a href="/pages/tienda.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Tienda</a>
+                    <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#fab501] transition-colors duration-200">Discord</a>
+                    <a href="/pages/wiki.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Wiki</a>
+                    <a href="/pages/informacion.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Información</a>
+                    <button onclick="showLoginModal()" class="login-btn text-white hover:text-[#fab501] transition-colors duration-200 flex items-center">
+                        <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:text-[#fab501]">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" 
+             class="relative"
+             @click.away="mobileMenuOpen = false">
+            <div x-show="mobileMenuOpen"
+                 x-transition:enter="transition-opacity ease-linear duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition-opacity ease-linear duration-300"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 bg-black bg-opacity-25"
+                 style="z-index: -1;"></div>
+            
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform -translate-y-2"
+                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-2"
+                 class="absolute right-0 w-full bg-[#161725] shadow-lg py-2">
+                <div class="px-4 pt-2 pb-3 space-y-1">
+                    <a href="/" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Inicio</a>
+                    <a href="/pages/cargos-publicos.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Cargos Públicos</a>
+                    <a href="/pages/tienda.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Tienda</a>
+                    <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Discord</a>
+                    <a href="/pages/wiki.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Wiki</a>
+                    <a href="/pages/informacion.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Información</a>
+                    <button onclick="showLoginModal()" class="w-full text-left flex items-center px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">
+                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <section class="pt-32 pb-16 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#161725] via-[#1a1b2e] to-[#161725]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8" data-aos="fade-up">
+                <span class="gradient-text">Blog</span> <span class="text-white">Genesis NW</span>
+            </h1>
+            <p class="text-xl text-white/80 text-center max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Descubre las últimas noticias, actualizaciones y contenido exclusivo de nuestra comunidad.
+            </p>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="py-16 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Featured Post -->
+            <div class="mb-16" data-aos="fade-up">
+                <div class="group relative">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-[#fab501] to-pink-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative glass-effect p-6 rounded-lg border border-[#fab501]/20 hover:border-[#fab501]/40 transition-all duration-300">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="relative h-64 md:h-full overflow-hidden rounded-lg">
+                                <img src="https://w.wallhaven.cc/full/7p/wallhaven-7pd3l9.jpg" alt="Featured Post" class="w-full h-full object-cover blog-image">
+                                <div class="absolute top-4 right-4 bg-[#fab501] text-[#161725] px-3 py-1 rounded-full text-sm font-semibold">
+                                    Destacado
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <span class="text-[#fab501] text-sm">22 Mar 2024</span>
+                                <h2 class="text-2xl md:text-3xl font-bold text-white">Nueva Actualización del Servidor</h2>
+                                <p class="text-white/80">Descubre todas las nuevas características y mejoras que hemos implementado en nuestro servidor. Desde nuevas mecánicas de juego hasta mejoras en el rendimiento.</p>
+                                <a href="#" class="inline-flex items-center text-[#fab501] hover:underline">
+                                    Leer más
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Post 1 -->
+                <div class="blog-card group relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-[#fab501] to-pink-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative glass-effect p-6 rounded-lg border border-[#fab501]/20 hover:border-[#fab501]/40 transition-all duration-300">
+                        <div class="relative h-48 mb-6 overflow-hidden rounded-lg">
+                            <img src="https://w.wallhaven.cc/full/7p/wallhaven-7pd3l9.jpg" alt="Blog Post" class="w-full h-full object-cover blog-image">
+                            <div class="absolute top-4 right-4 bg-[#fab501] text-[#161725] px-3 py-1 rounded-full text-sm font-semibold">
+                                Nuevo
+                            </div>
+                        </div>
+                        <span class="text-[#fab501] text-sm">20 Mar 2024</span>
+                        <h3 class="text-xl font-bold text-white mt-2 mb-4">Guía para Principiantes</h3>
+                        <p class="text-white/80 mb-4">Aprende todo lo que necesitas saber para comenzar tu aventura en Genesis NW.</p>
+                        <a href="#" class="inline-flex items-center text-[#fab501] hover:underline">
+                            Leer más
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="blog-card group relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-[#fab501] to-pink-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative glass-effect p-6 rounded-lg border border-[#fab501]/20 hover:border-[#fab501]/40 transition-all duration-300">
+                        <div class="relative h-48 mb-6 overflow-hidden rounded-lg">
+                            <img src="https://w.wallhaven.cc/full/7p/wallhaven-7pd3l9.jpg" alt="Blog Post" class="w-full h-full object-cover blog-image">
+                            <div class="absolute top-4 right-4 bg-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Evento
+                            </div>
+                        </div>
+                        <span class="text-[#fab501] text-sm">18 Mar 2024</span>
+                        <h3 class="text-xl font-bold text-white mt-2 mb-4">Evento Especial de Primavera</h3>
+                        <p class="text-white/80 mb-4">Participa en nuestro evento especial de primavera con premios exclusivos.</p>
+                        <a href="#" class="inline-flex items-center text-[#fab501] hover:underline">
+                            Leer más
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div class="blog-card group relative" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-[#fab501] to-pink-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative glass-effect p-6 rounded-lg border border-[#fab501]/20 hover:border-[#fab501]/40 transition-all duration-300">
+                        <div class="relative h-48 mb-6 overflow-hidden rounded-lg">
+                            <img src="https://w.wallhaven.cc/full/7p/wallhaven-7pd3l9.jpg" alt="Blog Post" class="w-full h-full object-cover blog-image">
+                            <div class="absolute top-4 right-4 bg-[#161725] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Tutorial
+                            </div>
+                        </div>
+                        <span class="text-[#fab501] text-sm">15 Mar 2024</span>
+                        <h3 class="text-xl font-bold text-white mt-2 mb-4">Mejores Prácticas</h3>
+                        <p class="text-white/80 mb-4">Descubre las mejores prácticas para maximizar tu experiencia en el servidor.</p>
+                        <a href="#" class="inline-flex items-center text-[#fab501] hover:underline">
+                            Leer más
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-16 flex justify-center" data-aos="fade-up">
+                <nav class="flex items-center space-x-2">
+                    <a href="#" class="px-4 py-2 rounded-lg bg-[#fab501]/10 text-[#fab501] hover:bg-[#fab501]/20 transition-colors duration-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-[#fab501] text-[#161725] hover:bg-[#fab501]/90 transition-colors duration-200">1</a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-[#fab501]/10 text-[#fab501] hover:bg-[#fab501]/20 transition-colors duration-200">2</a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-[#fab501]/10 text-[#fab501] hover:bg-[#fab501]/20 transition-colors duration-200">3</a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-[#fab501]/10 text-[#fab501] hover:bg-[#fab501]/20 transition-colors duration-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative pt-24 pb-12 bg-[#161725]">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#161725]/50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold">
+                        <span class="text-[#fab501]">Genesis</span>
+                        <span class="text-white">NW</span>
+                    </h3>
+                    <p class="text-white/60">Transformando la manera en que las empresas documentan y comparten conocimiento.</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-[#fab501]/10 pt-8 mt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-white/60">&copy; 2024 Genesis NW. Todos los derechos reservados.</div>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="#" class="text-white/60 hover:text-[#fab501] transition-colors duration-300">Términos</a>
+                        <a href="#" class="text-white/60 hover:text-[#fab501] transition-colors duration-300">Privacidad</a>
+                        <a href="#" class="text-white/60 hover:text-[#fab501] transition-colors duration-300">Contacto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón de subir -->
+    <button id="scrollToTop" 
+            class="fixed bottom-8 right-8 bg-[#fab501] text-[#161725] p-3 rounded-full shadow-lg hover:bg-[#fab501]/90 transition-all duration-300 opacity-0 invisible z-50"
+            onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-backdrop">
+        <div class="modal">
+            <button class="modal-close" onclick="closeLoginModal()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <h2 class="modal-title">Iniciar Sesión</h2>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="space-y-4">
+                    <div>
+                        <input type="email" id="login-email" class="modal-input" placeholder="Correo electrónico" required>
+                    </div>
+                    <div>
+                        <input type="password" id="login-password" class="modal-input" placeholder="Contraseña" required>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember-me" class="modal-checkbox">
+                            <label for="remember-me" class="text-sm text-white">Recordarme</label>
+                        </div>
+                        <a href="#" class="modal-link text-sm">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <button type="submit" class="modal-button primary">
+                        Iniciar Sesión
+                    </button>
+                    <button type="button" class="modal-button secondary" onclick="closeLoginModal()">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+            <div class="modal-divider"></div>
+            <div class="text-center">
+                <p class="text-white text-sm">
+                    ¿No tienes una cuenta? 
+                    <a href="#" class="modal-link">Regístrate</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Botón de subir
+        const scrollToTop = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTop.classList.remove('opacity-0', 'invisible');
+            } else {
+                scrollToTop.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        // Login Modal Functions
+        function showLoginModal() {
+            const modal = document.getElementById('loginModal');
+            const modalContent = modal.querySelector('.modal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modalContent.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModal');
+            const modalContent = modal.querySelector('.modal');
+            modalContent.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const remember = document.getElementById('remember-me').checked;
+
+            // Here you would typically handle the login logic
+            console.log('Login attempt:', { email, password, remember });
+            
+            // For demo purposes, show success message
+            closeLoginModal();
+            // You can implement your own success notification here
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.id === 'loginModal') {
+                closeLoginModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('loginModal').style.display === 'flex') {
+                closeLoginModal();
+            }
+        });
+    </script>
+</body>
+</html>

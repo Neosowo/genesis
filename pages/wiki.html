@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación - Genesis NW</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        
+        * {
+            font-family: "Noto Sans", sans-serif;
+        }
+        
+        h1 {
+            font-family: "Josefin Sans", sans-serif;
+        }
+
+        .hero-title,
+        .hero-title span {
+            font-family: "Josefin Sans", sans-serif !important;
+        }
+        
+        .hero-title .gradient-text {
+            font-family: "Josefin Sans", sans-serif !important;
+            background: linear-gradient(to right, #fab501, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(22, 23, 37, 0.75);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #fab501, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Estilos para las tarjetas de reglas */
+        .rule-card {
+            background-color: rgba(22, 23, 37, 0.95);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(250, 181, 1, 0.1);
+            backdrop-filter: blur(16px);
+            margin-bottom: 1rem;
+        }
+
+        .rule-card h3 {
+            color: #fab501;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rule-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Estilos para los números de las reglas */
+        .rule-number {
+            font-family: "Josefin Sans", sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fab501;
+            margin-right: 1rem;
+            min-width: 2rem;
+            text-align: left;
+        }
+
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(250,181,1,0.3);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(250,181,1,0.5);
+        }
+
+        /* Animación suave al cargar secciones */
+        section {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SweetAlert2 Custom Styles */
+        .swal2-popup {
+            background-color: rgba(22, 23, 37, 0.98) !important;
+            border: 1px solid #fab501 !important;
+            border-radius: 0.5rem !important;
+            padding: 2rem !important;
+            max-width: 400px !important;
+        }
+        
+        .swal2-title {
+            color: #fab501 !important;
+            font-family: "Josefin Sans", sans-serif !important;
+            font-size: 1.8rem !important;
+            font-weight: 600 !important;
+            margin-bottom: 2rem !important;
+        }
+        
+        .swal2-html-container {
+            color: white !important;
+            font-family: "Noto Sans", sans-serif !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .swal2-confirm {
+            background-color: #fab501 !important;
+            color: #161725 !important;
+            border-radius: 0.25rem !important;
+            font-weight: 600 !important;
+            padding: 0.75rem 1.5rem !important;
+            transition: all 0.3s ease !important;
+            margin-top: 1rem !important;
+            width: 100% !important;
+        }
+        
+        .swal2-cancel {
+            background-color: transparent !important;
+            color: #fab501 !important;
+            border: 1px solid #fab501 !important;
+            border-radius: 0.25rem !important;
+            font-weight: 600 !important;
+            padding: 0.75rem 1.5rem !important;
+            width: 100% !important;
+        }
+        
+        .login-input {
+            background-color: rgba(22, 23, 37, 0.7) !important;
+            border: 1px solid #fab501 !important;
+            color: white !important;
+            border-radius: 0.25rem !important;
+            padding: 0.75rem 1rem !important;
+            margin-bottom: 1rem !important;
+            box-shadow: none !important;
+            width: 100% !important;
+            height: 45px !important;
+        }
+        
+        .login-input:focus {
+            border-color: #fab501 !important;
+            box-shadow: none !important;
+        }
+        
+        .login-divider {
+            width: 100%;
+            height: 2px;
+            background: #fab501;
+            margin: 1.5rem 0;
+        }
+        
+        .input-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .login-checkbox {
+            margin-right: 0.5rem !important;
+            border: 1px solid #fab501 !important;
+        }
+        
+        .login-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+        }
+        
+        .login-forgot {
+            color: #fab501 !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .login-register {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .login-register a {
+            color: #fab501 !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .yellow-divider {
+            width: 100%;
+            height: 4px;
+            background-color: #fab501;
+            margin: 1rem 0;
+            border-radius: 2px;
+        }
+        
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-[#161725]" x-data="{ 
+    sidebarOpen: window.innerWidth >= 768, 
+    loading: true, 
+    mobileMenuOpen: false, 
+    contentOpen: window.innerWidth >= 768,
+    isMobile: window.innerWidth < 768
+}" 
+x-init="
+    setTimeout(() => loading = false, 2000);
+    window.addEventListener('resize', () => {
+        isMobile = window.innerWidth < 768;
+        if (!isMobile) {
+            sidebarOpen = true;
+            contentOpen = true;
+        } else {
+            sidebarOpen = false;
+            contentOpen = false;
+        }
+    });
+">
+    <!-- Loader -->
+    <div x-show="loading" 
+         x-transition:leave="transition-all duration-1000"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#161725]/80 backdrop-blur-[10px]">
+        <div class="relative">
+            <ul class="m-0 p-0 list-none">
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[60px] h-[60px] -mt-[30px] -ml-[30px] animate-[spin_3s_linear_infinite]"></li>
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[40px] h-[40px] -mt-[20px] -ml-[20px] animate-[spin_2s_linear_infinite]"></li>
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[20px] h-[20px] -mt-[10px] -ml-[10px] animate-[spin_1s_linear_infinite]"></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Botón de toggle para menú lateral en móvil -->
+    <button 
+        @click="sidebarOpen = !sidebarOpen"
+        class="fixed bottom-8 left-8 md:hidden z-50 bg-[#fab501] text-[#161725] p-3 rounded-full shadow-lg hover:bg-[#fab501]/90 transition-all duration-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path x-show="!sidebarOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            <path x-show="sidebarOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+    </button>
+
+    <!-- Botón de toggle para contenido en móvil -->
+    <button 
+        @click="contentOpen = !contentOpen"
+        class="fixed bottom-8 right-24 md:hidden z-50 bg-[#fab501] text-[#161725] p-3 rounded-full shadow-lg hover:bg-[#fab501]/90 transition-all duration-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path x-show="!contentOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <path x-show="contentOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+    </button>
+
+    <!-- Menú Lateral Izquierdo mejorado -->
+    <div 
+        x-show="sidebarOpen || !isMobile"
+        x-transition:enter="transition-transform duration-300 ease-out"
+        x-transition:enter-start="-translate-x-full"
+        x-transition:enter-end="translate-x-0"
+        x-transition:leave="transition-transform duration-300 ease-in"
+        x-transition:leave-start="translate-x-0"
+        x-transition:leave-end="-translate-x-full"
+        class="w-64 backdrop-blur-md bg-[#161725]/95 border-r border-white/5 fixed h-full overflow-y-auto z-40 pt-20">
+        <div class="p-6">
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-[#fab501] to-[#fa8b01] bg-clip-text text-transparent">
+                    Documentación
+                </h1>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- PRINCIPAL con diseño mejorado -->
+                <div class="mb-6">
+                    <h3 class="text-[#fab501] text-xs uppercase tracking-wider font-bold mb-3">PRINCIPAL</h3>
+                    <div class="space-y-3">
+                        <a href="#reglamento" class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                            <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <span class="font-medium">Reglamento general</span>
+                        </a>
+                        <a href="#comandos" class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                            <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <span class="font-medium">Guía de comandos</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ILEGALES -->
+                <div class="mb-6">
+                    <h3 class="text-[#fab501] text-xs uppercase tracking-wider font-bold mb-3">ILEGALES</h3>
+                    <div class="space-y-3">
+                        <a href="#roles-ilegales" class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                            <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            <span class="font-medium">Normativa de roles ilegales</span>
+                        </a>
+                        <a href="#organizaciones" class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                            <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <span class="font-medium">Organizaciones ilegales</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay para cerrar el menú en móvil -->
+    <div 
+        x-show="sidebarOpen && window.innerWidth < 768"
+        @click="sidebarOpen = false"
+        class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden">
+    </div>
+
+    <!-- Botón de subir -->
+    <button id="scrollToTop" 
+            class="fixed bottom-8 right-8 bg-[#fab501] text-[#161725] p-3 rounded-full shadow-lg hover:bg-[#fab501]/90 transition-all duration-300 opacity-0 invisible z-50"
+            onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-[#fab501]/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-white hover:text-[#fab501] transition-all duration-300">
+                        <span class="text-[#fab501] font-['Josefin_Sans']">Genesis</span><span class="font-['Josefin_Sans']">NW</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="text-white hover:text-[#fab501] transition-colors duration-200">Inicio</a>
+                    <a href="/pages/cargos-publicos.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Cargos Públicos</a>
+                    <a href="/pages/tienda.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Tienda</a>
+                    <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#fab501] transition-colors duration-200">Discord</a>
+                    <a href="/pages/wiki.html" class="text-[#fab501] transition-colors duration-200">Wiki</a>
+                    <a href="/pages/informacion.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Información</a>
+                    <!-- Login Button -->
+                    <button onclick="showLoginModal()" class="login-btn text-white hover:text-[#fab501] transition-colors duration-200 flex items-center">
+                        <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:text-[#fab501]">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" 
+             class="relative"
+             @click.away="mobileMenuOpen = false">
+            <div x-show="mobileMenuOpen"
+                 x-transition:enter="transition-opacity ease-linear duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition-opacity ease-linear duration-300"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 bg-black bg-opacity-25"
+                 style="z-index: -1;"></div>
+            
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform -translate-y-2"
+                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-2"
+                 class="absolute right-0 w-full bg-[#161725] shadow-lg py-2 z-50">
+                <div class="px-4 pt-2 pb-3 space-y-1">
+                    <a href="/" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Inicio</a>
+                    <a href="/pages/cargos-publicos.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Cargos Públicos</a>
+                    <a href="/pages/tienda.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Tienda</a>
+                    <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Discord</a>
+                    <a href="/pages/wiki.html" class="block px-3 py-2 rounded-md text-[#fab501] hover:bg-[#fab501]/10">Wiki</a>
+                    <a href="/pages/informacion.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Información</a>
+                    <!-- Login Button for Mobile -->
+                    <button onclick="showLoginModal()" class="w-full text-left flex items-center px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">
+                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Spacer -->
+    <div class="h-20"></div>
+
+    <div class="flex min-h-screen bg-gradient-to-br from-[#161725] to-[#1a1b2e]">
+        <!-- Contenido Principal mejorado -->
+        <div class="transition-all duration-300 flex-1" 
+             :class="{
+                 'md:ml-64': sidebarOpen || !isMobile,
+                 'ml-0': !sidebarOpen && isMobile,
+                 'md:mr-64': contentOpen || !isMobile,
+                 'mr-0': !contentOpen && isMobile
+             }">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <!-- Buscador en la parte superior -->
+                <div class="mb-8">
+                    <div class="relative">
+                        <input type="search" 
+                               placeholder="Buscar en la documentación..." 
+                               class="w-full px-6 py-4 rounded-xl bg-[#161725]/80 border border-[#fab501]/20 text-white focus:outline-none focus:ring-2 focus:ring-[#fab501]/50 focus:border-[#fab501] text-lg">
+                        <svg class="absolute right-4 top-4 h-6 w-6 text-[#fab501]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Introducción -->
+                <div class="mb-12 p-6 glass-effect rounded-xl border border-[#fab501]/10">
+                    <h2 class="text-3xl font-bold text-white mb-4">Introducción</h2>
+                    <p class="text-white/80 mb-4">
+                        Bienvenido al reglamento oficial de Genesis NW. Este documento detalla las normas y directrices 
+                        que todos los miembros de nuestra comunidad deben seguir para garantizar una experiencia 
+                        agradable y respetuosa para todos. El desconocimiento de estas reglas no exime de 
+                        su cumplimiento.
+                    </p>
+                    <p class="text-white/80">
+                        Estas reglas pueden ser actualizadas periódicamente, por lo que te recomendamos revisarlas 
+                        con regularidad. Cualquier cambio significativo será comunicado a través de nuestros 
+                        canales oficiales.
+                    </p>
+                </div>
+
+                <!-- Reglas Generales -->
+                <div id="general" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6">Reglas <span class="gradient-text">Generales</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">1</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Respeto mutuo</h3>
+                                    <p class="text-white/80">Trata a todos los miembros de la comunidad con respeto. No se tolerará el acoso, la discriminación o los insultos de ningún tipo.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">2</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Prohibición de trampas</h3>
+                                    <p class="text-white/80">El uso de software o métodos no autorizados para obtener ventajas está estrictamente prohibido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">3</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Prohibición de exploits</h3>
+                                    <p class="text-white/80">Aprovechar errores o vulnerabilidades del sistema para beneficio propio está prohibido. Si encuentras un error, repórtalo al equipo administrativo.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">4</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Privacidad</h3>
+                                    <p class="text-white/80">Respeta la privacidad de los demás. No compartas información personal de otros jugadores sin su consentimiento explícito.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">5</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Cuentas múltiples</h3>
+                                    <p class="text-white/80">El uso de múltiples cuentas para evadir sanciones o para obtener ventajas está prohibido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Código de Conducta -->
+                <div id="conducta" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6">Código de <span class="gradient-text">Conducta</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">1</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Lenguaje apropiado</h3>
+                                    <p class="text-white/80">Utiliza un lenguaje apropiado en todos los canales de comunicación. El lenguaje ofensivo, discriminatorio o vulgar no está permitido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">2</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Comportamiento tóxico</h3>
+                                    <p class="text-white/80">El comportamiento tóxico, incluyendo el acoso, la intimidación o cualquier forma de abuso, está estrictamente prohibido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">3</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Colaboración</h3>
+                                    <p class="text-white/80">Fomenta un ambiente de colaboración y ayuda. Ayuda a los nuevos jugadores y contribuye positivamente a la comunidad.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">4</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Respeto a la diversidad</h3>
+                                    <p class="text-white/80">Respeta la diversidad de opiniones, culturas y perspectivas de todos los miembros de la comunidad.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comunicación -->
+                <div id="comunicacion" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6"><span class="gradient-text">Comunicación</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">1</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Canales de comunicación</h3>
+                                    <p class="text-white/80">Utiliza los canales de comunicación oficiales para discutir temas relacionados con el servidor. Cada canal tiene un propósito específico.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">2</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Spam</h3>
+                                    <p class="text-white/80">Evita el spam y la publicación repetitiva de mensajes o contenido en cualquier canal de comunicación.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">3</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Publicidad</h3>
+                                    <p class="text-white/80">La publicidad de otros servidores, servicios o productos está prohibida sin la aprobación previa del equipo administrativo.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">4</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Contenido inapropiado</h3>
+                                    <p class="text-white/80">No compartas contenido inapropiado, incluyendo material explícito, violento o que pueda perturbar a otros miembros de la comunidad.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Economía y Comercio -->
+                <div id="economia" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6">Economía y <span class="gradient-text">Comercio</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">1</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Transacciones justas</h3>
+                                    <p class="text-white/80">Todas las transacciones comerciales deben ser justas y transparentes. No se permite el engaño o la estafa en las transacciones.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">2</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Moneda oficial</h3>
+                                    <p class="text-white/80">Respeta el sistema económico establecido y utiliza únicamente la moneda oficial del servidor para tus transacciones.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">3</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Comercio real</h3>
+                                    <p class="text-white/80">El comercio de bienes virtuales por dinero real está estrictamente prohibido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PvP y Conflictos -->
+                <div id="pvp" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6">PvP y <span class="gradient-text">Conflictos</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">1</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Zonas de PvP</h3>
+                                    <p class="text-white/80">El PvP solo está permitido en las zonas designadas para ello. Respeta las zonas seguras y las zonas de conflicto.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">2</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Acoso a jugadores</h3>
+                                    <p class="text-white/80">El acoso persistente a otros jugadores está prohibido, incluso en zonas de PvP. Respeta cuando alguien no quiere participar en conflictos.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">3</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Resolución de conflictos</h3>
+                                    <p class="text-white/80">Los conflictos entre jugadores deben resolverse de manera respetuosa. Si es necesario, solicita la mediación del equipo administrativo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Construcción -->
+                <div id="construccion" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6"><span class="gradient-text">Construcción</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">1</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Reglas de construcción</h3>
+                                    <p class="text-white/80">Sigue las reglas de construcción establecidas para garantizar la calidad y la cohesión del entorno.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">2</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Materiales permitidos</h3>
+                                    <p class="text-white/80">Utiliza únicamente materiales permitidos para la construcción.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">3</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Alturas permitidas</h3>
+                                    <p class="text-white/80">No construyas estructuras por encima de las alturas permitidas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sanciones -->
+                <div id="sanciones" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6"><span class="gradient-text">Sanciones</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">1</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Niveles de sanción</h3>
+                                    <p class="text-white/80">Las sanciones se aplicarán según la gravedad de la infracción, desde advertencias hasta expulsión permanente.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">2</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Proceso de sanción</h3>
+                                    <p class="text-white/80">Toda sanción será notificada al jugador con la explicación correspondiente y la duración de la misma.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">3</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Acumulación de sanciones</h3>
+                                    <p class="text-white/80">Las sanciones pueden acumularse según el historial del jugador y la gravedad de las infracciones.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apelaciones -->
+                <div id="apelaciones" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6"><span class="gradient-text">Apelaciones</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">1</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Proceso de apelación</h3>
+                                    <p class="text-white/80">Los jugadores tienen derecho a apelar cualquier sanción siguiendo el proceso oficial establecido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">2</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Documentación requerida</h3>
+                                    <p class="text-white/80">Las apelaciones deben incluir toda la información relevante y pruebas que respalden el caso.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-card p-4">
+                            <div class="flex items-start">
+                                <span class="rule-number">3</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Resolución</h3>
+                                    <p class="text-white/80">El equipo administrativo revisará cada apelación y tomará una decisión final basada en la evidencia presentada.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PowerGaming -->
+                <div id="powergaming" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6"><span class="gradient-text">PowerGaming (PG)</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-6">
+                            <div class="flex items-start">
+                                <span class="rule-number">1.</span>
+                                <div class="flex-1">
+                                    <h3>PowerGaming (PG)</h3>
+                                    <p>El PowerGaming, abreviado como PG, se refiere a acciones dentro del juego que no serían posibles en la vida real, pero que se realizan en el juego.</p>
+                                    <ul class="list-disc list-inside mt-4 text-white/80 space-y-2">
+                                        <li>Ejemplo de PowerGaming: Saltar desde grandes alturas sin sufrir daño.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MetaGaming -->
+                <div id="metagaming" class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-6"><span class="gradient-text">MetaGaming (MG)</span></h2>
+                    <div class="space-y-4">
+                        <div class="rule-card p-6">
+                            <div class="flex items-start">
+                                <span class="rule-number">2.</span>
+                                <div class="flex-1">
+                                    <h3>MetaGaming (MG)</h3>
+                                    <p>El MetaGaming implica el uso de información obtenida fuera del juego para influir en las acciones dentro del juego.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Índice Lateral Derecho mejorado -->
+        <div 
+            x-show="contentOpen || !isMobile"
+            x-transition:enter="transition-transform duration-300 ease-out"
+            x-transition:enter-start="translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition-transform duration-300 ease-in"
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="translate-x-full"
+            class="w-64 backdrop-blur-md bg-[#161725]/95 border-l border-white/5 fixed right-0 top-0 h-full overflow-y-auto z-40 pt-20">
+            <div class="p-6">
+                <h3 class="text-[#fab501] text-xs uppercase tracking-wider font-bold mb-6">Contenido</h3>
+                <div class="space-y-4">
+                    <a href="#general" 
+                       class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                        <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        <span class="font-medium">Reglas Generales</span>
+                    </a>
+                    <a href="#conducta" 
+                       class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                        <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="font-medium">Código de Conducta</span>
+                    </a>
+                    <a href="#comunicacion" 
+                       class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                        <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                        <span class="font-medium">Comunicación</span>
+                    </a>
+                    <a href="#economia" 
+                       class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                        <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="font-medium">Economía y Comercio</span>
+                    </a>
+                    <a href="#pvp" 
+                       class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                        <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="font-medium">PvP y Conflictos</span>
+                    </a>
+                    <a href="#construccion" 
+                       class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                        <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                        <span class="font-medium">Construcción</span>
+                    </a>
+                    <a href="#sanciones" 
+                       class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                        <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <span class="font-medium">Sanciones</span>
+                    </a>
+                    <a href="#apelaciones" 
+                       class="flex items-center p-2 rounded-lg text-white/80 hover:bg-white/5 hover:text-[#fab501] transition-all group">
+                        <svg class="w-5 h-5 mr-3 text-[#fab501]/70 group-hover:text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="font-medium">Apelaciones</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay para cerrar el contenido en móvil -->
+        <div 
+            x-show="contentOpen && window.innerWidth < 768"
+            @click="contentOpen = false"
+            class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden">
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md">
+            <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-[#fab501]/20">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-white">Iniciar Sesión</h3>
+                    <button onclick="closeLoginModal()" class="text-white/60 hover:text-[#fab501] transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-white/80 mb-2">Correo electrónico</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="tu@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center text-white/80">
+                            <input type="checkbox" class="mr-2 rounded border-[#fab501]/20 text-[#fab501] focus:ring-[#fab501]">
+                            Recordarme
+                        </label>
+                        <a href="#" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-[#fab501] text-[#161725] py-3 rounded-lg font-semibold hover:bg-[#fab501]/90 transition-all transform hover:scale-[1.02]">
+                        Iniciar Sesión
+                    </button>
+                    <div class="text-center text-white/80">
+                        ¿No tienes una cuenta? 
+                        <a href="#" onclick="switchToRegister()" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">Regístrate</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md">
+            <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-[#fab501]/20">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-white">Crear Cuenta</h3>
+                    <button onclick="closeRegisterModal()" class="text-white/60 hover:text-[#fab501] transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-white/80 mb-2">Nombre</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-white/80 mb-2">Apellido</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="Tu apellido">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Correo electrónico</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="tu@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Confirmar Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="mr-2 rounded border-[#fab501]/20 text-[#fab501] focus:ring-[#fab501]">
+                        <label class="text-white/80 text-sm">
+                            Acepto los <a href="#" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">términos y condiciones</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="w-full bg-[#fab501] text-[#161725] py-3 rounded-lg font-semibold hover:bg-[#fab501]/90 transition-all transform hover:scale-[1.02]">
+                        Crear Cuenta
+                    </button>
+                    <div class="text-center text-white/80">
+                        ¿Ya tienes una cuenta? 
+                        <a href="#" onclick="switchToLogin()" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">Iniciar Sesión</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Login Modal Functions
+        function showLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLoginModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLoginModal();
+            }
+        });
+
+        // Register Modal Functions
+        function showRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchToRegister() {
+            closeLoginModal();
+            showRegisterModal();
+        }
+
+        function switchToLogin() {
+            closeRegisterModal();
+            showLoginModal();
+        }
+
+        // Close register modal when clicking outside
+        document.getElementById('registerModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRegisterModal();
+            }
+        });
+
+        // Close register modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeRegisterModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init();
+            
+            // Highlight current section
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.doc-sidebar a').forEach(link => {
+                            if (link.getAttribute('href').slice(1) === entry.target.id) {
+                                link.classList.add('text-[#fab501]', 'border-[#fab501]');
+                            } else {
+                                link.classList.remove('text-[#fab501]', 'border-[#fab501]');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('section[id]').forEach((section) => {
+                observer.observe(section);
+            });
+
+            // Botón de subir
+            const scrollToTop = document.getElementById('scrollToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTop.classList.remove('opacity-0', 'invisible');
+                } else {
+                    scrollToTop.classList.add('opacity-0', 'invisible');
+                }
+            });
+
+            // Manejar cambios de tamaño de ventana
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    // Actualizar clases y estilos después de que el resize haya terminado
+                    document.body.style.transition = 'none';
+                    requestAnimationFrame(() => {
+                        document.body.style.transition = '';
+                    });
+                }, 250);
+            });
+        });
+    </script>
+</body>
+</html>

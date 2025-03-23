@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genesis NW</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- SweetAlert2 CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        *{
+            font-family: "Noto Sans", sans-serif;
+        }
+        h1{
+            font-family: "Josefin Sans", sans-serif;
+        }	
+
+        .hero-title,
+        .hero-title span {
+            font-family: "Josefin Sans", sans-serif !important;
+        }
+        
+        .hero-title .gradient-text {
+            font-family: "Josefin Sans", sans-serif !important;
+            background: linear-gradient(to right, #fab501, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Añadimos animaciones personalizadas */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(22, 23, 37, 0.75);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #fab501, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .loading-gradient {
+            background: linear-gradient(
+                90deg,
+                #fab501,
+                #ff6b6b,
+                #fab501
+            );
+            background-size: 200% 200%;
+            animation: gradient-animation 2s ease infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .realtime-data {
+            padding: 1.5rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(22, 23, 37, 0.75);
+            border: 1px solid rgba(250, 181, 1, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .realtime-data:hover {
+            border-color: rgba(250, 181, 1, 0.3);
+            box-shadow: 0 0 20px rgba(250, 181, 1, 0.1);
+        }
+
+        @media (max-width: 640px) {
+            .realtime-data {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;  /* Ancho de la barra */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #161725;  /* Color del fondo de la barra */
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #fab501;  /* Color del "pulgar" de la barra */
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(250, 181, 1, 0.8);  /* Color al pasar el mouse */
+        }
+
+        /* Personalización de la barra de desplazamiento horizontal */
+        ::-webkit-scrollbar:horizontal {
+            height: 8px;
+        }
+
+        /* Ocultar las flechas de la barra de desplazamiento */
+        ::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        /* Esquinas de la barra de desplazamiento */
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+
+        .hero-title-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title-container .main-title {
+            font-size: 4rem;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.8rem;
+        }
+
+        .hero-title-container .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        /* Tablets */
+        @media (min-width: 768px) {
+            .hero-title-container .main-title {
+                font-size: 5rem;
+                padding-bottom: 1rem;
+            }
+            .hero-title-container .main-title::after {
+                width: 100%;
+                height: 2px;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .hero-title-container .main-title {
+                font-size: 6rem;
+                padding-bottom: 1.2rem;
+            }
+            .hero-title-container .main-title::after {
+                width: 100%;
+                height: 2px;
+            }
+        }
+
+        /* Pantallas grandes */
+        @media (min-width: 1536px) {
+            .hero-title-container .main-title {
+                font-size: 7rem;
+            }
+            .hero-title-container .main-title::after {
+                width: 100%;
+                height: 3px;
+            }
+        }
+
+        /* SweetAlert2 Custom Styles */
+        .swal2-popup {
+            background-color: rgba(22, 23, 37, 0.98) !important;
+            border: 1px solid #fab501 !important;
+            border-radius: 0.5rem !important;
+            padding: 2rem !important;
+            max-width: 400px !important;
+        }
+        
+        .swal2-title {
+            color: #fab501 !important;
+            font-family: "Josefin Sans", sans-serif !important;
+            font-size: 1.8rem !important;
+            font-weight: 600 !important;
+            margin-bottom: 2rem !important;
+        }
+        
+        .swal2-html-container {
+            color: white !important;
+            font-family: "Noto Sans", sans-serif !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .swal2-confirm {
+            background-color: #fab501 !important;
+            color: #161725 !important;
+            border-radius: 0.25rem !important;
+            font-weight: 600 !important;
+            padding: 0.75rem 1.5rem !important;
+            transition: all 0.3s ease !important;
+            margin-top: 1rem !important;
+            width: 100% !important;
+        }
+        
+        .swal2-cancel {
+            background-color: transparent !important;
+            color: #fab501 !important;
+            border: 1px solid #fab501 !important;
+            border-radius: 0.25rem !important;
+            font-weight: 600 !important;
+            padding: 0.75rem 1.5rem !important;
+            width: 100% !important;
+        }
+        
+        .login-input {
+            background-color: rgba(22, 23, 37, 0.7) !important;
+            border: 1px solid #fab501 !important;
+            color: white !important;
+            border-radius: 0.25rem !important;
+            padding: 0.75rem 1rem !important;
+            margin-bottom: 1rem !important;
+            box-shadow: none !important;
+            width: 100% !important;
+            height: 45px !important;
+        }
+        
+        .login-input:focus {
+            border-color: #fab501 !important;
+            box-shadow: none !important;
+        }
+        
+        .login-divider {
+            width: 100%;
+            height: 2px;
+            background: #fab501;
+            margin: 1.5rem 0;
+        }
+        
+        .input-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .login-checkbox {
+            margin-right: 0.5rem !important;
+            border: 1px solid #fab501 !important;
+        }
+        
+        .login-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+        }
+        
+        .login-forgot {
+            color: #fab501 !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .login-register {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .login-register a {
+            color: #fab501 !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .yellow-divider {
+            width: 100%;
+            height: 4px;
+            background-color: #fab501;
+            margin: 1rem 0;
+            border-radius: 2px;
+        }
+        
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Toast Notification Styles */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 12px;
+            pointer-events: none;
+            max-width: 100%;
+            width: max-content;
+            perspective: 1000px;
+        }
+
+        .toast {
+            background: rgba(22, 23, 37, 0.95);
+            border: 1px solid;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: toastSlideIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            backdrop-filter: blur(12px);
+            max-width: 380px;
+            width: 100%;
+            pointer-events: auto;
+            transform-origin: bottom;
+            will-change: transform;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast:hover::before {
+            opacity: 1;
+        }
+
+        .toast:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast svg {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            stroke-width: 2.5;
+            transition: transform 0.3s ease;
+        }
+
+        .toast:hover svg {
+            transform: scale(1.1);
+        }
+
+        .toast span {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast.success {
+            border-color: #fab501;
+            background: linear-gradient(145deg, rgba(22, 23, 37, 0.95), rgba(22, 23, 37, 0.98));
+            box-shadow: 0 8px 32px rgba(250, 181, 1, 0.15),
+                       inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .toast.error {
+            border-color: #ff6b6b;
+            background: linear-gradient(145deg, rgba(22, 23, 37, 0.95), rgba(22, 23, 37, 0.98));
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.15),
+                       inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes toastSlideIn {
+            0% {
+                transform: translateX(100%) translateY(0) rotateY(-15deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes toastSlideOut {
+            0% {
+                transform: translateX(0) translateY(0) rotateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%) translateY(0) rotateY(15deg);
+                opacity: 0;
+            }
+        }
+
+        .toast.hide {
+            animation: toastSlideOut 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @media (max-width: 640px) {
+            .toast-container {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                width: auto;
+            }
+            
+            .toast {
+                padding: 12px 16px;
+                max-width: none;
+                border-radius: 12px;
+                background: rgba(22, 23, 37, 0.98);
+            }
+
+            .toast span {
+                font-size: 0.9rem;
+            }
+
+            .toast:hover {
+                transform: translateY(-1px) scale(1.005);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .toast {
+                animation: none;
+                transition: none;
+            }
+            .toast:hover {
+                transform: none;
+            }
+            .toast.hide {
+                animation: none;
+                opacity: 0;
+            }
+        }
+    </style>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+</head>
+<body class="bg-[#161725]" x-data="{ loading: true, mobileMenuOpen: false, darkMode: false }" x-init="AOS.init(); setTimeout(() => loading = false, 2000)">
+    <div x-show="loading" 
+         x-transition:leave="transition-all duration-1000"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#161725]/80 backdrop-blur-[10px]">
+        <div class="relative">
+            <ul class="m-0 p-0 list-none">
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[60px] h-[60px] -mt-[30px] -ml-[30px] animate-[spin_3s_linear_infinite]"></li>
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[40px] h-[40px] -mt-[20px] -ml-[20px] animate-[spin_2s_linear_infinite]"></li>
+                <li class="absolute border-4 rounded-full border-[#161725] border-t-[#fab501] w-[20px] h-[20px] -mt-[10px] -ml-[10px] animate-[spin_1s_linear_infinite]"></li>
+            </ul>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center whitespace-nowrap z-10">
+            </div>
+        </div>
+    </div>
+
+    <!-- Spacer -->
+    <div class="h-16"></div>
+
+
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-[#fab501]/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-white hover:text-[#fab501] transition-all duration-300 flex items-center gap-2">
+                       
+                        <span class="text-[#fab501] font-['Josefin_Sans']">Genesis</span><span class="font-['Josefin_Sans']">NW</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="text-[#fab501] transition-colors duration-200">Inicio</a>
+                    <a href="pages/cargos-publicos.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Cargos Públicos</a>
+                    <a href="pages/tienda.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Tienda</a>
+                    <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#fab501] transition-colors duration-200">Discord</a>
+                    <a href="pages/wiki.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Wiki</a>
+                    <a href="pages/informacion.html" class="text-white hover:text-[#fab501] transition-colors duration-200">Información</a>
+                    <!-- Login Button -->
+                    <button onclick="showLoginModal()" class="login-btn text-white hover:text-[#fab501] transition-colors duration-200 flex items-center">
+                        <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:text-[#fab501]">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" 
+             class="relative"
+             @click.away="mobileMenuOpen = false">
+            <div x-show="mobileMenuOpen"
+                 x-transition:enter="transition-opacity ease-linear duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition-opacity ease-linear duration-300"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 bg-black bg-opacity-25"
+                 style="z-index: -1;"></div>
+            
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform -translate-y-2"
+                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-2"
+                 class="absolute right-0 w-full bg-[#161725] shadow-lg py-2">
+                <div class="px-4 pt-2 pb-3 space-y-1">
+                    <a href="/" class="block px-3 py-2 rounded-md text-[#fab501] hover:bg-[#fab501]/10">Inicio</a>
+                    <a href="pages/cargos-publicos.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Cargos Públicos</a>
+                    <a href="pages/tienda.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Tienda</a>
+                    <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Discord</a>
+                    <a href="pages/wiki.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Wiki</a>
+                    <a href="pages/informacion.html" class="block px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">Información</a>
+                    <!-- Login Button for Mobile -->
+                    <button onclick="showLoginModal()" class="w-full text-left flex items-center px-3 py-2 rounded-md text-white hover:bg-[#fab501]/10 hover:text-[#fab501]">
+                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md">
+            <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-[#fab501]/20">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-white">Iniciar Sesión</h3>
+                    <button onclick="closeLoginModal()" class="text-white/60 hover:text-[#fab501] transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-white/80 mb-2">Correo electrónico</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="tu@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center text-white/80">
+                            <input type="checkbox" class="mr-2 rounded border-[#fab501]/20 text-[#fab501] focus:ring-[#fab501]">
+                            Recordarme
+                        </label>
+                        <a href="#" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-[#fab501] text-[#161725] py-3 rounded-lg font-semibold hover:bg-[#fab501]/90 transition-all transform hover:scale-[1.02]">
+                        Iniciar Sesión
+                    </button>
+                    <div class="text-center text-white/80">
+                        ¿No tienes una cuenta? 
+                        <a href="#" onclick="switchToRegister()" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">Regístrate</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md">
+            <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-[#fab501]/20">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-white">Crear Cuenta</h3>
+                    <button onclick="closeRegisterModal()" class="text-white/60 hover:text-[#fab501] transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-white/80 mb-2">Nombre</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-white/80 mb-2">Apellido</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="Tu apellido">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Correo electrónico</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="tu@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div>
+                        <label class="block text-white/80 mb-2">Confirmar Contraseña</label>
+                        <input type="password" class="w-full px-4 py-3 rounded-lg bg-[#161725]/50 border border-[#fab501]/20 text-white focus:border-[#fab501] focus:ring-2 focus:ring-[#fab501]/20 outline-none transition-all" placeholder="••••••••">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="mr-2 rounded border-[#fab501]/20 text-[#fab501] focus:ring-[#fab501]">
+                        <label class="text-white/80 text-sm">
+                            Acepto los <a href="#" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">términos y condiciones</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="w-full bg-[#fab501] text-[#161725] py-3 rounded-lg font-semibold hover:bg-[#fab501]/90 transition-all transform hover:scale-[1.02]">
+                        Crear Cuenta
+                    </button>
+                    <div class="text-center text-white/80">
+                        ¿Ya tienes una cuenta? 
+                        <a href="#" onclick="switchToLogin()" class="text-[#fab501] hover:text-[#fab501]/80 transition-colors">Iniciar Sesión</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen overflow-hidden py-32 bg-gradient-to-b from-[#161725] via-[#1a1b2e] to-[#161725]">
+        <div class="absolute inset-0">
+            <!-- Partículas animadas con Alpine.js -->
+            <div class="particles absolute inset-0" x-data="particles()"></div>
+            
+            <!-- Gradiente animado -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-[#fab501]/10 via-transparent to-pink-500/10 animate-gradient-xy"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8" data-aos="fade-right">
+                    <div class="hero-title-container">
+                        <h1 class="hero-title">
+                            <div class="main-title">
+                                <span class="gradient-text">Genesis</span>
+                                <span class="text-white">NW</span>
+                            </div>
+                            <span class="block text-3xl md:text-4xl mt-4 text-white/90">Organiza. Colabora. Crece.</span>
+                        </h1>
+                    </div>
+                    <p class="text-xl text-white/90 leading-relaxed">
+                        Crea, comparte y gestiona tu conocimiento de manera eficiente con Genesis NW.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="copyToClipboard('mc.genesisrp.net')" class="bg-[#fab501] text-[#161725] hover:bg-[#fab501]/90 px-8 py-4 rounded-xl font-semibold transition-all duration-300 text-center transform hover:scale-105 flex items-center justify-center gap-2">
+                            <span>mc.genesisrp.net</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+                            </svg>
+                        </button>
+                        <a href="https://discord.gg/BeQ5tdDuSJ" target="_blank" rel="noopener noreferrer" class="border-2 border-[#fab501] text-[#fab501] hover:bg-[#fab501]/10 px-8 py-4 rounded-xl font-semibold transition-all duration-300 text-center">
+                            Discord
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block relative" data-aos="fade-left">
+                    <img src="assets/img/GenesisRPLogoTranspOutline.webp" alt="Genesis NW" class="w-full relative animate-float">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Features Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-white mb-16" data-aos="fade-up">
+                <span class="gradient-text">Características</span> Destacadas
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-[#fab501] to-pink-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative glass-effect p-8 rounded-lg border border-[#fab501]/20 hover:border-[#fab501]/40 transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="text-[#fab501] mb-4">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Edición en Tiempo Real</h3>
+                        <p class="text-white/80">Colabora con tu equipo en tiempo real, con cambios sincronizados instantáneamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#fab501]/10 to-pink-500/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    <div class="realtime-data glass-effect transform hover:scale-105 transition-all duration-300" 
+                         data-aos="fade-up" 
+                         data-aos-delay="100">
+                        <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-4">Precio Actual</h3>
+                        <div id="precio" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#fab501]">
+                            Cargando...
+                        </div>
+                    </div>
+                    
+                    <div class="realtime-data glass-effect transform hover:scale-105 transition-all duration-300" 
+                         data-aos="fade-up" 
+                         data-aos-delay="200">
+                        <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-4">Usuarios Online</h3>
+                        <div id="usuarios_online" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#fab501]">
+                            Cargando...
+                        </div>
+                    </div>
+                    
+                    <div class="realtime-data glass-effect transform hover:scale-105 transition-all duration-300" 
+                         data-aos="fade-up" 
+                         data-aos-delay="300">
+                        <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-4">Estado del Servidor</h3>
+                        <div id="estado_servidor" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#fab501]">
+                            Cargando...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-white mb-16" data-aos="fade-up">
+                Últimas <span class="gradient-text">Noticias</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Noticia 1 -->
+                <div class="group relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-[#fab501] to-pink-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative glass-effect p-6 rounded-lg border border-[#fab501]/20 hover:border-[#fab501]/40 transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="relative h-48 mb-6 overflow-hidden rounded-lg">
+                            <img src="https://w.wallhaven.cc/full/7p/wallhaven-7pd3l9.jpg" alt="Actualización" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-[#fab501] text-[#161725] px-3 py-1 rounded-full text-sm font-semibold">
+                                Nuevo
+                            </div>
+                        </div>
+                        <span class="text-[#fab501] text-sm">22 Mar 2024</span>
+                        <h3 class="text-xl font-bold text-white mt-2 mb-4">Nueva Actualización Disponible</h3>
+                        <p class="text-white/80 mb-4">Descubre las últimas mejoras y características añadidas a nuestra plataforma.</p>
+                        <a href="#" class="inline-flex items-center text-[#fab501] hover:underline">
+                            Leer más
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Noticia 2 -->
+                <div class="group relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-[#fab501] to-pink-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative glass-effect p-6 rounded-lg border border-[#fab501]/20 hover:border-[#fab501]/40 transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="relative h-48 mb-6 overflow-hidden rounded-lg">
+                            <img src="https://w.wallhaven.cc/full/7p/wallhaven-7pd3l9.jpg" alt="Evento" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Evento
+                            </div>
+                        </div>
+                        <span class="text-[#fab501] text-sm">20 Mar 2024</span>
+                        <h3 class="text-xl font-bold text-white mt-2 mb-4">Próximo Evento Especial</h3>
+                        <p class="text-white/80 mb-4">No te pierdas nuestro próximo evento con premios exclusivos y sorpresas.</p>
+                        <a href="#" class="inline-flex items-center text-[#fab501] hover:underline">
+                            Leer más
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Noticia 3 -->
+                <div class="group relative" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-[#fab501] to-pink-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative glass-effect p-6 rounded-lg border border-[#fab501]/20 hover:border-[#fab501]/40 transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="relative h-48 mb-6 overflow-hidden rounded-lg">
+                            <img src="https://w.wallhaven.cc/full/7p/wallhaven-7pd3l9.jpg" alt="Comunidad" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-[#161725] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Comunidad
+                            </div>
+                        </div>
+                        <span class="text-[#fab501] text-sm">18 Mar 2024</span>
+                        <h3 class="text-xl font-bold text-white mt-2 mb-4">Crecimiento de la Comunidad</h3>
+                        <p class="text-white/80 mb-4">Celebramos el increíble crecimiento de nuestra comunidad este mes.</p>
+                        <a href="#" class="inline-flex items-center text-[#fab501] hover:underline">
+                            Leer más
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ver todas las noticias -->
+            <div class="text-center mt-12" data-aos="fade-up">
+                <a href="#" class="inline-flex items-center justify-center px-8 py-3 border-2 border-[#fab501] text-[#fab501] rounded-lg hover:bg-[#fab501]/10 transition-all duration-300">
+                    Ver todas las noticias
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Footer -->
+    <footer class="relative pt-24 pb-12 bg-[#161725]">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#161725]/50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold">
+                        <span class="text-[#fab501]">Genesis</span>
+                        <span class="text-white">NW</span>
+                    </h3>
+                    <p class="text-white/60">Transformando la manera en que las empresas documentan y comparten conocimiento.</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-[#fab501]/10 pt-8 mt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-white/60">&copy; 2024 Genesis NW. Todos los derechos reservados.</div>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="#" class="text-white/60 hover:text-[#fab501] transition-colors duration-300">Términos</a>
+                        <a href="#" class="text-white/60 hover:text-[#fab501] transition-colors duration-300">Privacidad</a>
+                        <a href="#" class="text-white/60 hover:text-[#fab501] transition-colors duration-300">Contacto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón de subir -->
+    <button id="scrollToTop" 
+            class="fixed bottom-8 right-8 bg-[#fab501] text-[#161725] p-3 rounded-full shadow-lg hover:bg-[#fab501]/90 transition-all duration-300 opacity-0 invisible z-50"
+            onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Función para el contador animado
+        function counter(target) {
+            return {
+                current: 0,
+                target: target,
+                start() {
+                    const increment = target / 100;
+                    const interval = setInterval(() => {
+                        if (this.current < target) {
+                            this.current += increment;
+                        } else {
+                            clearInterval(interval);
+                            this.current = target;
+                        }
+                    }, 20);
+                }
+            }
+        }
+
+        // Función para las partículas
+        function particles() {
+            return {
+                init() {
+                    // Implementar lógica de partículas aquí
+                }
+            }
+        }
+
+        // Inicializar la conexión en tiempo real
+        document.addEventListener('DOMContentLoaded', () => {
+            // Suscribirse a múltiples columnas
+            subscribeToColumn('precio');
+            subscribeToColumn('usuarios_online');
+            subscribeToColumn('estado_servidor');
+            
+            // Limpiar recursos cuando la página se cierre
+            window.addEventListener('beforeunload', () => {
+                realtimeDB.cleanup();
+            });
+
+            // Botón de subir
+            const scrollToTop = document.getElementById('scrollToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTop.classList.remove('opacity-0', 'invisible');
+                } else {
+                    scrollToTop.classList.add('opacity-0', 'invisible');
+                }
+            });
+        });
+
+        // Extender la función updateUI para manejar diferentes tipos de datos
+        function updateUI(columnName, value) {
+            const element = document.getElementById(columnName);
+            if (element) {
+                switch(columnName) {
+                    case 'precio':
+                        element.textContent = `$${value.toFixed(2)}`;
+                        break;
+                    case 'usuarios_online':
+                        element.textContent = `${value} usuarios`;
+                        break;
+                    case 'estado_servidor':
+                        element.textContent = value;
+                        // Cambiar color según el estado
+                        element.className = `text-3xl font-bold ${
+                            value === 'Online' ? 'text-green-500' : 'text-red-500'
+                        }`;
+                        break;
+                    default:
+                        element.textContent = value;
+                }
+                
+                // Añadir efecto de actualización
+                element.classList.add('animate-pulse');
+                setTimeout(() => {
+                    element.classList.remove('animate-pulse');
+                }, 1000);
+            }
+        }
+
+        // Función para copiar al portapapeles
+        function copyToClipboard(text) {
+            // Crear contenedor de toast si no existe
+            let toastContainer = document.querySelector('.toast-container');
+            if (!toastContainer) {
+                toastContainer = document.createElement('div');
+                toastContainer.className = 'toast-container';
+                document.body.appendChild(toastContainer);
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                // Crear toast de éxito
+                const toast = document.createElement('div');
+                toast.className = 'toast success';
+                toast.innerHTML = `
+                    <svg class="w-5 h-5 text-[#fab501]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>IP copiada al portapapeles</span>
+                `;
+                
+                toastContainer.appendChild(toast);
+
+                // Eliminar el toast después de 2 segundos
+                setTimeout(() => {
+                    toast.style.animation = 'slideOut 0.3s ease-out forwards';
+                    setTimeout(() => {
+                        toastContainer.removeChild(toast);
+                    }, 300);
+                }, 2000);
+            }).catch(err => {
+                // Crear toast de error
+                const toast = document.createElement('div');
+                toast.className = 'toast error';
+                toast.innerHTML = `
+                    <svg class="w-5 h-5 text-[#ff6b6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                    <span>Error al copiar la IP</span>
+                `;
+                
+                toastContainer.appendChild(toast);
+
+                // Eliminar el toast después de 2 segundos
+                setTimeout(() => {
+                    toast.style.animation = 'slideOut 0.3s ease-out forwards';
+                    setTimeout(() => {
+                        toastContainer.removeChild(toast);
+                    }, 300);
+                }, 2000);
+            });
+        }
+
+        // Login Modal Functions
+        function showLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLoginModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLoginModal();
+            }
+        });
+
+        // Register Modal Functions
+        function showRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchToRegister() {
+            closeLoginModal();
+            showRegisterModal();
+        }
+
+        function switchToLogin() {
+            closeRegisterModal();
+            showLoginModal();
+        }
+
+        // Close register modal when clicking outside
+        document.getElementById('registerModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRegisterModal();
+            }
+        });
+
+        // Close register modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeRegisterModal();
+            }
+        });
+    </script>
+</body>
+</html>
